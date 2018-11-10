@@ -1,1 +1,12 @@
-/etc/local.d/suspend.start
+#!/bin/bash
+# /etc/local.d/suspend.start
+# 
+# disables 'wake from suspend' sources
+
+ACPIFILE=/proc/acpi/wakeup
+
+for SIGNAL in XHC1 LID0; do
+    grep $SIGNAL $ACPIFILE | grep enabled > /dev/null && echo $SIGNAL > $ACPIFILE 
+done
+
+exit 0
